@@ -12,8 +12,8 @@ def main():
     running = True 
     is_painting = False
     dt = 0 #delta time, change in time
-    screen.fill((0,0,0))
-    x = (255,255,255) #permanent
+    screen.fill((255,255,255))
+    x = (0,0,0) #permanent
     while(running): #while running is true
         mouse_pos = pygame.mouse.get_pos() #returns a tuple for the x,y of mouse
 
@@ -23,13 +23,12 @@ def main():
                 running = False #checking if you closed the game
             if event.type == pygame.MOUSEBUTTONDOWN:
                 is_painting = not is_painting #changes value of is_painting (false) to (true)
-            keys = pygame.key.get_pressed()
-            print("key pressed")
-            for key in keys:
-                if key >= pygame.K_1 and event.type <= pygame.K_5: #event.type and pygame are integers
-                    x = dic[event.type] #dic = integer
-                    print("color change")
-        
+            if event.type == pygame.KEYDOWN:
+                keys = pygame.key.get_pressed()
+                print("key pressed")
+                for i in range(pygame.K_1,pygame.K_5):
+                    if keys[i] == True:
+                        x = dic[i]
         if is_painting: #if true
             pygame.draw.rect(screen,x,(mouse_pos[0],mouse_pos[1],2,2), 0) #built in function
             #function above takes (surface, color of surface, rectangle to surface (what its draw,
